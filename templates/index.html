@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlgoViz - Algorithm Visualizer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="logo">
+                    <i class="fas fa-chart-line"></i>
+                    AlgoViz
+                </h1>
+                <p class="subtitle">Interactive Algorithm Visualization</p>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="nav">
+            <div class="nav-tabs">
+                <button class="nav-tab active" data-tab="sorting">
+                    <i class="fas fa-sort"></i>
+                    Sorting
+                </button>
+                <button class="nav-tab" data-tab="pathfinding">
+                    <i class="fas fa-route"></i>
+                    Pathfinding
+                </button>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main">
+            <!-- Sorting Section -->
+            <section id="sorting" class="content-section active">
+                <div class="controls">
+                    <div class="control-group">
+                        <label for="array-size">Array Size:</label>
+                        <input type="range" id="array-size" min="5" max="50" value="20">
+                        <span id="array-size-value">20</span>
+                    </div>
+                    <div class="control-group">
+                        <label for="sort-speed">Speed:</label>
+                        <input type="range" id="sort-speed" min="1" max="10" value="5">
+                        <span id="sort-speed-value">5</span>
+                    </div>
+                    <div class="control-group">
+                        <select id="sort-algorithm">
+                            <option value="bubble">Bubble Sort</option>
+                            <option value="quick">Quick Sort</option>
+                            <option value="merge">Merge Sort</option>
+                            <option value="heap">Heap Sort</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <button id="generate-array" class="btn btn-secondary">
+                            <i class="fas fa-random"></i>
+                            Generate Array
+                        </button>
+                        <button id="start-sort" class="btn btn-primary">
+                            <i class="fas fa-play"></i>
+                            Start Sorting
+                        </button>
+                        <button id="reset-sort" class="btn btn-danger">
+                            <i class="fas fa-undo"></i>
+                            Reset
+                        </button>
+                    </div>
+                </div>
+
+                <div class="visualization-container">
+                    <canvas id="sorting-canvas" width="800" height="400"></canvas>
+                    <div class="stats">
+                        <div class="stat">
+                            <span class="stat-label">Comparisons:</span>
+                            <span id="comparisons" class="stat-value">0</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Swaps:</span>
+                            <span id="swaps" class="stat-value">0</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Time:</span>
+                            <span id="sort-time" class="stat-value">0ms</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Pathfinding Section -->
+            <section id="pathfinding" class="content-section">
+                <div class="controls">
+                    <div class="control-group">
+                        <label for="grid-size">Grid Size:</label>
+                        <input type="range" id="grid-size" min="10" max="30" value="15">
+                        <span id="grid-size-value">15x15</span>
+                    </div>
+                    <div class="control-group">
+                        <label for="obstacle-percentage">Obstacles:</label>
+                        <input type="range" id="obstacle-percentage" min="0" max="50" value="30">
+                        <span id="obstacle-percentage-value">30%</span>
+                    </div>
+                    <div class="control-group">
+                        <select id="path-algorithm">
+                            <option value="dijkstra">Dijkstra's</option>
+                            <option value="astar">A* Search</option>
+                            <option value="bfs">Breadth-First Search</option>
+                            <option value="dfs">Depth-First Search</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <button id="generate-grid" class="btn btn-secondary">
+                            <i class="fas fa-th"></i>
+                            Generate Grid
+                        </button>
+                        <button id="start-pathfinding" class="btn btn-primary">
+                            <i class="fas fa-play"></i>
+                            Find Path
+                        </button>
+                        <button id="reset-pathfinding" class="btn btn-danger">
+                            <i class="fas fa-undo"></i>
+                            Reset
+                        </button>
+                    </div>
+                </div>
+
+                <div class="visualization-container">
+                    <canvas id="pathfinding-canvas" width="600" height="600"></canvas>
+                    <div class="stats">
+                        <div class="stat">
+                            <span class="stat-label">Nodes Explored:</span>
+                            <span id="nodes-explored" class="stat-value">0</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Path Length:</span>
+                            <span id="path-length" class="stat-value">0</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Time:</span>
+                            <span id="path-time" class="stat-value">0ms</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2025 AlgoViz. Built using Python Flask and Vanilla JavaScript.</p>
+        </footer>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="{{ url_for('static', filename='js/visualizer.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/algorithms/sorting.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/algorithms/pathfinding.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html> 
